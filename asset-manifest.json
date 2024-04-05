@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/programacion-fumiplagasjr/static/css/main.1ffc5fed.css",
+    "main.js": "/programacion-fumiplagasjr/static/js/main.567fa23e.js",
+    "static/js/453.00199366.chunk.js": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js",
+    "index.html": "/programacion-fumiplagasjr/index.html",
+    "main.1ffc5fed.css.map": "/programacion-fumiplagasjr/static/css/main.1ffc5fed.css.map",
+    "main.567fa23e.js.map": "/programacion-fumiplagasjr/static/js/main.567fa23e.js.map",
+    "453.00199366.chunk.js.map": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ffc5fed.css",
+    "static/js/main.567fa23e.js"
+  ]
+}
