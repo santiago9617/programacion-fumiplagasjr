@@ -11,29 +11,26 @@ import Programacion1 from './components/Programacion1';
 import Programacion2 from './components/Programacion2';
 import Programacion3 from './components/Programacion3';
 
-
 function App() {
   return (
     <div className="bg-slate-300 h-screen text-black flex">
       <AuthProvider>
         <Routes>
-          
-          <Route path="/" element={<LoginForm />} />
+          <Route path="/programacion-fumiplagasjr/" element={<LoginForm />} />
           <Route
-            path="/home"
+            path="/programacion-fumiplagasjr/home"
             element={
               <ProtectedRouter>
                 <Home />
               </ProtectedRouter>
             }
           />
-          <Route path='/programacionTres' element={<Programacion3/>}></Route>
-          <Route path='/programacionDos' element={<Programacion2/>} />
-          <Route path="/tarea" element={<Tareas />} />
-          <Route path="/programacionUno" element={<Programacion1 />} />
-          <Route path="/programacion" element={<Programacion />} />
-          <Route path="/register" element={<Register />} />
-          
+          <Route path="/programacion-fumiplagasjr/programacionTres" element={<Programacion3/>} />
+          <Route path="/programacion-fumiplagasjr/programacionDos" element={<Programacion2/>} />
+          <Route path="/programacion-fumiplagasjr/tarea" element={<Tareas />} />
+          <Route path="/programacion-fumiplagasjr/programacionUno" element={<Programacion1 />} />
+          <Route path="/programacion-fumiplagasjr/programacion" element={<Programacion />} />
+          <Route path="/programacion-fumiplagasjr/register" element={<Register />} />
         </Routes>
       </AuthProvider>
     </div>

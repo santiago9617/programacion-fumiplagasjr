@@ -13,21 +13,21 @@ const Programacion = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-6xl font-bold mb-8">Programación</h1>
       <div className="flex flex-wrap justify-center">
-        <Link to="/programacionUno">
+        <Link to="/programacion-fumiplagasjr/programacionUno">
           <button 
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-12 px-24 rounded-lg text-3xl shadow-md m-4"
           >
             Jhon Mario
           </button>
         </Link>
-        <Link to='/programacionDos'> 
+        <Link to='/programacion-fumiplagasjr/programacionDos'> 
           <button
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-12 px-24 rounded-lg text-3xl shadow-md m-4"
           >
             Sergio
           </button>
         </Link>
-        <Link to='/programacionTres'> 
+        <Link to='/programacion-fumiplagasjr/programacionTres'> 
           <button
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-12 px-24 rounded-lg text-3xl shadow-md m-4"
             onClick={() => console.log('Santiago')}

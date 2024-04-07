@@ -12,7 +12,7 @@ const OrangeButton = () => {
 
   const handleLogout = async () => {
     try {
-      navigate('/')
+      navigate('/programacion-fumiplagasjr/')
       await logout(); 
     } catch (error) {
       console.log(error);
@@ -21,17 +21,17 @@ const OrangeButton = () => {
 
   return (
     <div className="flex flex-col items-center justify-center fixed bottom-4 left-4 z-10">
-      <Link to="/home">
+      <Link to="/programacion-fumiplagasjr/home">
         <button className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg mb-4 hover:from-orange-500 hover:to-orange-700 hover:shadow-xl transition duration-300">
           Clientes
         </button>
       </Link>
-      <Link to="/programacion">
+      <Link to="/programacion-fumiplagasjr/programacion">
         <button className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg mb-4 hover:from-orange-500 hover:to-orange-700 hover:shadow-xl transition duration-300">
           Programación
         </button>
       </Link>
-      <Link to="/tarea">
+      <Link to="/programacion-fumiplagasjr/tarea">
         <button className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg mb-4 hover:from-orange-500 hover:to-orange-700 hover:shadow-xl transition duration-300">
           Tareas
         </button>

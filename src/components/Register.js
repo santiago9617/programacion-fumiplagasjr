@@ -24,7 +24,7 @@ const Register = () => {
         setError('')
         try {
           await  signup(user.email, user.password);
-            navigate('/')
+            navigate('/programacion-fumiplagasjr/')
         } catch (error) {
             setError(error.message);
         }
