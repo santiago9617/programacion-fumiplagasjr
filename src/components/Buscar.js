@@ -1,7 +1,9 @@
 // Buscar.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Buscar({ onSearch }) {
+    const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState('');
 
     const handleInputChange = (e) => {
@@ -13,7 +15,7 @@ function Buscar({ onSearch }) {
     };
 
     const handleReloadPage = () => {
-        window.location.reload();
+     navigate('/programacion-fumiplagasjr/home')
     };
 
     return (
