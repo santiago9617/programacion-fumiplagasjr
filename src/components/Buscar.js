@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Buscar({ onSearch }) {
+function Buscar({ onSearch, onReset  }) {
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState('');
 
@@ -15,7 +15,8 @@ function Buscar({ onSearch }) {
     };
 
     const handleReloadPage = () => {
-     navigate('/programacion-fumiplagasjr/home')
+        onReset();
+     navigate("/programacion-fumiplagasjr/home")
     };
 
     return (

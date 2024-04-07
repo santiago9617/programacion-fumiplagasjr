@@ -8,6 +8,7 @@ import Buscar from './Buscar';
 function Home() {
   
     const [todosLosServicios, setTodosLosServicios] = useState([]);
+    const [todosLosServiciosOriginales, setTodosLosServiciosOriginales] = useState([]);
     const [showOrangeButton, setShowOrangeButton] = useState(false);
     
 
@@ -29,6 +30,9 @@ function Home() {
             const todosLosServiciosData = [...serviciosSergioData, ...serviciosSantyData, ...serviciosData];
 
             setTodosLosServicios(todosLosServiciosData);
+
+            setTodosLosServicios(todosLosServiciosData);
+            setTodosLosServiciosOriginales(todosLosServiciosData);
 
         }
 
@@ -79,7 +83,9 @@ function Home() {
       setTodosLosServicios(serviciosFiltrados);
   };
   
-
+  const handleReset = () => {
+    setTodosLosServicios(todosLosServiciosOriginales); // Restablecer los datos originales
+};
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-4">Clientes</h1>
@@ -90,7 +96,7 @@ function Home() {
                 </svg>
             </button>
             {showOrangeButton && <OrangeButton />}
-            <Buscar onSearch={handleSearch} />
+            <Buscar onSearch={handleSearch}  onReset={handleReset} />
             </div>
             <div className="overflow-x-auto mt-4"></div>
             <div className="overflow-x-auto mt-4">
