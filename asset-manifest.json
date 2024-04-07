@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/programacion-fumiplagasjr/static/css/main.1ffc5fed.css",
-    "main.js": "/programacion-fumiplagasjr/static/js/main.23c5b058.js",
+    "main.js": "/programacion-fumiplagasjr/static/js/main.acafc899.js",
     "static/js/453.00199366.chunk.js": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js",
     "index.html": "/programacion-fumiplagasjr/index.html",
     "main.1ffc5fed.css.map": "/programacion-fumiplagasjr/static/css/main.1ffc5fed.css.map",
-    "main.23c5b058.js.map": "/programacion-fumiplagasjr/static/js/main.23c5b058.js.map",
+    "main.acafc899.js.map": "/programacion-fumiplagasjr/static/js/main.acafc899.js.map",
     "453.00199366.chunk.js.map": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1ffc5fed.css",
-    "static/js/main.23c5b058.js"
+    "static/js/main.acafc899.js"
   ]
 }
