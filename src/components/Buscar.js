@@ -1,9 +1,6 @@
-// Buscar.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function Buscar({ onSearch, onReset  }) {
-    const navigate = useNavigate();
+function Buscar({ onSearch, onReset }) {
     const [searchInput, setSearchInput] = useState('');
 
     const handleInputChange = (e) => {
@@ -16,16 +13,16 @@ function Buscar({ onSearch, onReset  }) {
 
     const handleReloadPage = () => {
         onReset();
-     navigate("/programacion-fumiplagasjr/home")
+        setSearchInput(''); 
     };
 
     return (
         <div className="flex items-center">
-            <input 
-                type="text" 
-                value={searchInput} 
-                onChange={handleInputChange} 
-                placeholder="Buscar por nombre o dirección" 
+            <input
+                type="text"
+                value={searchInput}
+                onChange={handleInputChange}
+                placeholder="Buscar por nombre"
                 className="py-3 px-5 border border-gray-300 rounded-l-md focus:outline-none focus:border-gray-500 w-64"
             />
             <button onClick={handleSearch} className="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-r-md focus:outline-none ml-1">
