@@ -9,7 +9,7 @@ const LoginForm = () => {
         password: ''
     });
 
-    const { login, loginWithGoogle } = useAuth();
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [error, setError] = useState();
 
@@ -22,20 +22,13 @@ const LoginForm = () => {
         setError('');
         try {
             await login(user.email, user.password);
-            navigate('/programacion-fumiplagasjr/home'); 
+            navigate('/programacion-fumiplagasjr/programacion'); 
         } catch (error) {
             setError(error.message);
         }
     };
 
-    const handleGoogleSignin = async () => {
-        try {
-            await loginWithGoogle();
-            navigate('/programacion-fumiplagasjr/home'); 
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+    
 
     return (
         <div className='w-full max-w-xs m-auto'>
@@ -49,7 +42,7 @@ const LoginForm = () => {
                     <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="correo@example.com"
                         className='shadow appearance-none boeder rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                         onChange={handleChange}
                     />
@@ -71,8 +64,7 @@ const LoginForm = () => {
                     type="submit">Iniciar</button>
             </form>
 
-            <button className='bg-slate-50 hover:bg-slate-200 text-black shadow-md rounded border-2 border-gray-300 py-2 px-4 w-full'
-                onClick={handleGoogleSignin}> Google Login </button>
+            
         </div>
     );
 };
