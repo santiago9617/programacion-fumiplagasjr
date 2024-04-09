@@ -72,7 +72,6 @@ function Home() {
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Dirección</th>
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Barrio/Municipio</th>
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
-                            <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Observaciones</th>
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo de Plaga</th>
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
                             <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Hora</th>
@@ -83,16 +82,15 @@ function Home() {
                     <tbody>
                         {todosLosServicios.map((servicio, index) => (
                             <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.nombreCliente}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.direccionCliente}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.barrioMunicipio}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.telefono}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.observaciones}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.tipoPlaga}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.fecha}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.hora}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.tecnico}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{servicio.precio}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.nombreCliente}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.direccionCliente}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.barrioMunicipio}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.telefono}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.tipoPlaga}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.fecha}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.tecnico}</td>
+                                <td className="px-6 py-4 whitespace-normal text-lg text-gray-900 border">{servicio.precio}</td>
                             </tr>
                         ))}
                     </tbody>

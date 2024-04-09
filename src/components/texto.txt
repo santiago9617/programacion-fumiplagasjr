@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { firestore } from '../firebase';
 import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 
-const Programacion2 = () => {
+const Programacion1 = () => {
   const navigate = useNavigate();
-  const serviciosCollection = collection(firestore, 'serviciosSergio');
+  const serviciosCollection = collection(firestore, 'servicios');
 
   const [serviciosProgramados, setServiciosProgramados] = useState({});
 
@@ -18,7 +18,7 @@ const Programacion2 = () => {
     tipoPlaga: '',
     fecha: '',
     hora: '',
-    tecnico: 'Sergio',
+    tecnico: 'Jhon Mario',
     precio: '' 
   };
 
@@ -122,61 +122,53 @@ const Programacion2 = () => {
       </div>
 
       <div className="mt-8">
-  {Object.entries(serviciosProgramados).map(([fecha, servicios]) => (
-    <div key={fecha} className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full table-auto border-collapse">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Hora</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Nombre Cliente</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Teléfono</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Dirección</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Barrio/Municipio</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Tipo de Plaga</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Técnico</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Precio</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Acciones</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {servicios
-              .sort((a, b) => {
-                // Ordenar los servicios por hora
-                if (a.hora < b.hora) return -1;
-                if (a.hora > b.hora) return 1;
-                return 0;
-              })
-              .map((servicio, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.nombreCliente}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.telefono}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.direccionCliente}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.barrioMunicipio}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tipoPlaga}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tecnico}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.precio}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">
-                    <button
-                      onClick={() => handleEdit(servicio)}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    >
-                      Editar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        {Object.entries(serviciosProgramados).map(([fecha, servicios]) => (
+          <div key={fecha} className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto border-collapse">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Hora</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Nombre Cliente</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Teléfono</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Dirección</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Barrio/Municipio</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Tipo de Plaga</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Técnico</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Precio</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Acciones</th> {/* Nueva columna para acciones */}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {servicios.map((servicio, index) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.nombreCliente}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.telefono}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.direccionCliente}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.barrioMunicipio}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tipoPlaga}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tecnico}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.precio}</td>
+                      <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">
+                        <button
+                          onClick={() => handleEdit(servicio)} // Llama a la función handleEdit pasando el servicio actual
+                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        >
+                          Editar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 };
 
-export default Programacion2;
+export default Programacion1;
