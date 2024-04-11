@@ -18,7 +18,7 @@ const Programacion2 = () => {
     tipoPlaga: '',
     fecha: '',
     hora: '',
-    tecnico: 'Jhon Mario',
+    tecnico: 'Sergio',
     precio: '' 
   };
 
