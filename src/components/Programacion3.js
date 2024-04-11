@@ -8,6 +8,7 @@ const Programacion3 = () => {
   const serviciosCollection = collection(firestore, 'serviciosSanty');
 
   const [serviciosProgramados, setServiciosProgramados] = useState({});
+  const [mostrarTodo, setMostrarTodo] = useState(false); 
 
   const clienteNuevo = {
     id: '',
@@ -137,8 +138,8 @@ const Programacion3 = () => {
       </div>
 
       <div className="mt-8">
-        {Object.entries(serviciosProgramados).map(([fecha, servicios]) => (
-          <div key={fecha} className="mb-8">
+        {Object.entries(serviciosProgramados).map(([fecha, servicios], index) => (
+          <div key={fecha} className={`mb-8 ${!mostrarTodo && index > 0 ? 'hidden' : ''}`}> {/* Ocultar las tablas si mostrarTodo es false y no es la primera tabla */}
             <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto border-collapse">
@@ -199,6 +200,12 @@ const Programacion3 = () => {
             </div>
           </div>
         ))}
+        {/* Agregar botones de "Ver menos" y "Ver más" */}
+        <div className="flex justify-center mt-4">
+          <button onClick={() => setMostrarTodo(!mostrarTodo)} className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500">
+            {mostrarTodo ? 'Ver menos' : 'Ver más'}
+          </button>
+        </div>
       </div>
     </div>
   );
