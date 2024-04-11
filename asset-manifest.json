@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/programacion-fumiplagasjr/static/css/main.fb5c5929.css",
-    "main.js": "/programacion-fumiplagasjr/static/js/main.4d20c34f.js",
+    "main.css": "/programacion-fumiplagasjr/static/css/main.6b63b032.css",
+    "main.js": "/programacion-fumiplagasjr/static/js/main.30fed098.js",
     "static/js/453.00199366.chunk.js": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js",
     "index.html": "/programacion-fumiplagasjr/index.html",
-    "main.fb5c5929.css.map": "/programacion-fumiplagasjr/static/css/main.fb5c5929.css.map",
-    "main.4d20c34f.js.map": "/programacion-fumiplagasjr/static/js/main.4d20c34f.js.map",
+    "main.6b63b032.css.map": "/programacion-fumiplagasjr/static/css/main.6b63b032.css.map",
+    "main.30fed098.js.map": "/programacion-fumiplagasjr/static/js/main.30fed098.js.map",
     "453.00199366.chunk.js.map": "/programacion-fumiplagasjr/static/js/453.00199366.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb5c5929.css",
-    "static/js/main.4d20c34f.js"
+    "static/css/main.6b63b032.css",
+    "static/js/main.30fed098.js"
   ]
 }
