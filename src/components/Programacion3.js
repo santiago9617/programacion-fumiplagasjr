@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { firestore } from '../firebase';
-import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const Programacion3 = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const Programacion3 = () => {
   const [serviciosProgramados, setServiciosProgramados] = useState({});
 
   const clienteNuevo = {
-    id: '', // Agregamos un campo para almacenar el ID del documento
+    id: '',
     nombreCliente: '',
     direccionCliente: '',
     barrioMunicipio: '',
@@ -32,17 +32,16 @@ const Programacion3 = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // Validar que el nombre del cliente esté presente
     if (!cliente.nombreCliente) {
       alert('Por favor ingrese el nombre del cliente.');
       return;
     }
 
     try {
-      if (cliente.id) { // Si hay un ID, actualizamos el documento existente
+      if (cliente.id) {
         await updateDoc(doc(serviciosCollection, cliente.id), cliente);
         console.log('Documento actualizado en Firestore con ID:', cliente.id);
-      } else { // Si no hay un ID, agregamos un nuevo documento
+      } else {
         const docRef = await addDoc(serviciosCollection, cliente);
         console.log('Documento guardado en Firestore con ID:', docRef.id);
       }
@@ -65,7 +64,7 @@ const Programacion3 = () => {
           const servicio = doc.data();
           const fecha = servicio.fecha;
           serviciosData[fecha] = serviciosData[fecha] || [];
-          serviciosData[fecha].push({ ...servicio, id: doc.id }); // Añadir el ID del documento al objeto del servicio
+          serviciosData[fecha].push({ ...servicio, id: doc.id });
         });
         setServiciosProgramados(serviciosData);
       } catch (error) {
@@ -77,6 +76,22 @@ const Programacion3 = () => {
 
   const handleEdit = servicio => {
     setCliente(servicio);
+  };
+
+  const handleDelete = async servicioId => {
+    try {
+      await deleteDoc(doc(serviciosCollection, servicioId));
+      console.log('Documento eliminado de Firestore con ID:', servicioId);
+      
+      // Actualizar el estado de serviciosProgramados eliminando el servicio eliminado
+      const updatedServiciosProgramados = {...serviciosProgramados};
+      Object.keys(updatedServiciosProgramados).forEach(fecha => {
+        updatedServiciosProgramados[fecha] = updatedServiciosProgramados[fecha].filter(servicio => servicio.id !== servicioId);
+      });
+      setServiciosProgramados(updatedServiciosProgramados);
+    } catch (error) {
+      console.error('Error al eliminar documento de Firestore:', error);
+    }
   };
 
   return (
@@ -92,15 +107,15 @@ const Programacion3 = () => {
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </label>
               <input
-                type={key === 'fecha' || key === 'hora' ? key : key === 'precio' ? 'number' : 'text'}
-                id={key}
-                name={key}
-                value={value}
-                onChange={handleChange}
-                placeholder={key === 'fecha' ? 'DD-MM-YYYY' : key === 'hora' ? 'HH:MM' : `Ingrese ${key}`}
-                className="mt-1 p-2 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
-                required={key === 'nombreCliente'}
-              />
+                  type={key === 'fecha' ? 'date' : key === 'hora' ? 'time' : key === 'precio' ? 'number' : 'text'}
+                  id={key}
+                  name={key}
+                  value={value}
+                  onChange={handleChange}
+                  placeholder={key === 'fecha' ? 'YYYY-MM-DD' : key === 'hora' ? 'HH:MM' : `Ingrese ${key}`}
+                  className="mt-1 p-2 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"
+                  required={key === 'nombreCliente'}
+                />
             </div>
           ))}
 
@@ -109,7 +124,7 @@ const Programacion3 = () => {
               type="submit"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              {cliente.id ? 'Actualizar' : 'Guardar'} {/* Cambiado el texto del botón según si hay un ID de cliente */}
+              {cliente.id ? 'Actualizar' : 'Guardar'}
             </button>
             <button
               onClick={retroceder}
@@ -122,59 +137,69 @@ const Programacion3 = () => {
       </div>
 
       <div className="mt-8">
-  {Object.entries(serviciosProgramados).map(([fecha, servicios]) => (
-    <div key={fecha} className="mb-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full table-auto border-collapse">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Hora</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Nombre Cliente</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Teléfono</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Dirección</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Barrio/Municipio</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Tipo de Plaga</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Técnico</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Precio</th>
-              <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Acciones</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {servicios
-              .sort((a, b) => {
-                // Ordenar los servicios por hora
-                if (a.hora < b.hora) return -1;
-                if (a.hora > b.hora) return 1;
-                return 0;
-              })
-              .map((servicio, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.nombreCliente}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.telefono}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.direccionCliente}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.barrioMunicipio}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tipoPlaga}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tecnico}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.precio}</td>
-                  <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">
-                    <button
-                      onClick={() => handleEdit(servicio)}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    >
-                      Editar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        {Object.entries(serviciosProgramados).map(([fecha, servicios]) => (
+          <div key={fecha} className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto border-collapse">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Hora</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Nombre Cliente</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Teléfono</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Dirección</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Barrio/Municipio</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Tipo de Plaga</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Técnico</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Precio</th>
+                    <th className="px-4 py-2 text-lg font-semibold text-gray-700 border">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {servicios
+                    .sort((a, b) => {
+                      if (a.hora < b.hora) return -1;
+                      if (a.hora > b.hora) return 1;
+                      return 0;
+                    })
+                    .map((servicio, index) => (
+                      <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.nombreCliente}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.telefono}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.direccionCliente}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.barrioMunicipio}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tipoPlaga}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.tecnico}</td>
+                        <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.precio}</td>
+                        <td className="px-2 py-1 whitespace-normal text-base text-gray-900 border">
+                        <select
+                          className="block appearance-none bg-white border border-gray-300 hover:border-gray-500 px-2 py-1 pr-2 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          onChange={(e) => {
+                            const action = e.target.value;
+                            if (action === "editar") {
+                              handleEdit(servicio);
+                            } else if (action === "eliminar") {
+                              const confirmarEliminacion = window.confirm("¿Estás seguro de que deseas eliminar este servicio?");
+                              if (confirmarEliminacion) {
+                                handleDelete(servicio.id);
+                              }
+                            }
+                          }}
+                        >
+                          <option value="">⏬</option>
+                          <option value="editar">Editar</option>
+                          <option value="eliminar">Eliminar</option>
+                        </select>
+                      </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 };
