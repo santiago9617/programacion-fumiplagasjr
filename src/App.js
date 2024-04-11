@@ -10,6 +10,8 @@ import Programacion from './components/Programacion';
 import Programacion1 from './components/Programacion1';
 import Programacion2 from './components/Programacion2';
 import Programacion3 from './components/Programacion3';
+import Programacion4 from './components/Programacion4';
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           />
           <Route path="/programacion-fumiplagasjr/programacionTres" element={<Programacion3/>} />
           <Route path="/programacion-fumiplagasjr/programacionDos" element={<Programacion2/>} />
+          <Route path="/programacion-fumiplagasjr/programacionCuatro" element={<Programacion4/>} />
           <Route path="/programacion-fumiplagasjr/tarea" element={<Tareas />} />
           <Route path="/programacion-fumiplagasjr/programacionUno" element={<Programacion1 />} />
           <Route path="/programacion-fumiplagasjr/programacion" element={<Programacion />} />

@@ -35,6 +35,13 @@ const Programacion = () => {
             Santiago
           </button>
         </Link>
+        <Link to='/programacion-fumiplagasjr/programacionCuatro'> 
+          <button
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-12 px-24 rounded-lg text-3xl shadow-md m-4"
+          >
+            Proximamente...
+          </button>
+        </Link>
       </div>
       <div className="absolute top-4">
         <button onClick={toggleOrangeButton} className="rounded-full bg-orange-500 p-4 focus:outline-none">

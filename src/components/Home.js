@@ -25,7 +25,10 @@ function Home() {
             const serviciosSnapshot = await getDocs(collection(firestore, 'servicios'));
             const serviciosData = serviciosSnapshot.docs.map(doc => doc.data());
 
-            const todosLosServiciosData = [...serviciosSergioData, ...serviciosSantyData, ...serviciosData];
+            const servicios4Snapshot = await getDocs(collection(firestore, 'servicios4'));
+            const servicios4Data = servicios4Snapshot.docs.map(doc => doc.data());
+
+            const todosLosServiciosData = [...serviciosSergioData, ...serviciosSantyData, ...serviciosData, ...servicios4Data];
 
             setTodosLosServicios(todosLosServiciosData);
             setTodosLosServiciosOriginales(todosLosServiciosData);
