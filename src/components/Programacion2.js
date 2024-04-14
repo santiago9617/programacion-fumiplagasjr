@@ -162,7 +162,17 @@ const Programacion2 = () => {
             <tbody className="divide-y divide-gray-200">
               {/* Filas de la tabla */}
               {serviciosProgramados[fecha]
-                .sort((a, b) => new Date(a.hora) - new Date(b.hora)) // Ordenar los servicios por hora
+                .sort((a, b) => {
+                  // Separar la hora y los minutos y convertirlos a números enteros
+                  const [horaA, minutoA] = a.hora.split(':').map(Number);
+                  const [horaB, minutoB] = b.hora.split(':').map(Number);
+                  // Comparar las horas y luego los minutos si las horas son iguales
+                  if (horaA !== horaB) {
+                    return horaA - horaB;
+                  } else {
+                    return minutoA - minutoB;
+                  }
+                }) // Ordenar los servicios por horaa
                 .map((servicio, index) => (
                   <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}>
                     <td className="px-4 py-2 whitespace-normal text-lg text-gray-900 border">{servicio.hora}</td>
