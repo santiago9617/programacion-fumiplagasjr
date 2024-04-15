@@ -99,7 +99,7 @@ const Programacion2 = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
         <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">Programación de Servicios</h3>
+          <h3 className="text-lg font-medium leading-6 text-gray-900"> Sergio <br/>Programación de Servicios</h3>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 px-4 py-5 sm:px-6">
           {Object.entries(cliente).map(([key, value]) => (
