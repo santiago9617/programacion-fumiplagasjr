@@ -7,8 +7,10 @@ const Programacion4 = () => {
   const navigate = useNavigate();
   const serviciosCollection = collection(firestore, 'servicios4');
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [serviciosProgramados, setServiciosProgramados] = useState({});
   const [mostrarTodo, setMostrarTodo] = useState(false); // Estado para controlar si se muestran todas las tablas
+  const itemsPerPage = 3;
 
   const clienteNuevo = {
     id: '',
@@ -95,11 +97,14 @@ const Programacion4 = () => {
     }
   };
 
+  const totalPages = Math.ceil(Object.keys(serviciosProgramados).length / itemsPerPage);
+
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
         <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">Programación de Servicios</h3>
+          <h3 className="text-lg font-medium leading-6 text-gray-900">Jhon Mario  <br/>Programación de Servicios</h3>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 px-4 py-5 sm:px-6">
           {Object.entries(cliente).map(([key, value]) => (
@@ -140,6 +145,7 @@ const Programacion4 = () => {
       <div className="mt-8">
   {Object.keys(serviciosProgramados)
     .sort((a, b) => new Date(b) - new Date(a)) // Ordenar las fechas de forma descendente
+    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) // Obtener solo los servicios de la página actual
     .map((fecha, index) => (
       <div key={fecha} className={`mb-8 ${!mostrarTodo && index > 0 ? 'hidden' : ''}`}>
         <h2 className="text-2xl font-bold text-gray-900 mb-4">{fecha}</h2>
@@ -217,7 +223,22 @@ const Programacion4 = () => {
     </button>
   </div>
 </div>
-
+<div className="flex justify-center mt-4">
+          <button
+            onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            Anterior
+          </button>
+          <button
+            onClick={() => setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="ml-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            Siguiente
+          </button>
+        </div>
     </div>
   );
 };

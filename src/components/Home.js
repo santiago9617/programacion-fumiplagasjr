@@ -5,41 +5,32 @@ import OrangeButton from './OrangeButton';
 import Buscar from './Buscar';
 
 function Home() {
+    const [currentPage, setCurrentPage] = useState(1);
     const [todosLosServicios, setTodosLosServicios] = useState([]);
     const [todosLosServiciosOriginales, setTodosLosServiciosOriginales] = useState([]);
     const [showOrangeButton, setShowOrangeButton] = useState(false);
+    const itemsPerPage = 10; // Cambia este valor según tu preferencia
 
     const toggleOrangeButton = () => {
         setShowOrangeButton(!showOrangeButton);
     };
 
-    // Función para obtener los datos de Firebase
-    const fetchData = async () => {
+    // Función para obtener los datos de Firebase para una página específica
+    const fetchData = async (page) => {
         try {
-            const serviciosSergioSnapshot = await getDocs(collection(firestore, 'serviciosSergio'));
-            const serviciosSergioData = serviciosSergioSnapshot.docs.map(doc => doc.data());
-
-            const serviciosSantySnapshot = await getDocs(collection(firestore, 'serviciosSanty'));
-            const serviciosSantyData = serviciosSantySnapshot.docs.map(doc => doc.data());
-
+            const offset = (page - 1) * itemsPerPage;
             const serviciosSnapshot = await getDocs(collection(firestore, 'servicios'));
-            const serviciosData = serviciosSnapshot.docs.map(doc => doc.data());
-
-            const servicios4Snapshot = await getDocs(collection(firestore, 'servicios4'));
-            const servicios4Data = servicios4Snapshot.docs.map(doc => doc.data());
-
-            const todosLosServiciosData = [...serviciosSergioData, ...serviciosSantyData, ...serviciosData, ...servicios4Data];
-
-            setTodosLosServicios(todosLosServiciosData);
-            setTodosLosServiciosOriginales(todosLosServiciosData);
+            const serviciosData = serviciosSnapshot.docs.map(doc => doc.data()).slice(offset, offset + itemsPerPage);
+            setTodosLosServicios(serviciosData);
+            setTodosLosServiciosOriginales(serviciosData);
         } catch (error) {
             console.error('Error al obtener los servicios:', error);
         }
     };
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData(currentPage);
+    }, [currentPage]);
 
     const handleSearch = (searchTerm) => {
         const searchTermLowercase = searchTerm.toLowerCase();
@@ -98,6 +89,21 @@ function Home() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+            <div className="flex justify-center mt-4">
+                <button
+                    onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+                >
+                    Anterior
+                </button>
+                <button
+                    onClick={() => setCurrentPage(prevPage => prevPage + 1)}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+                >
+                    Siguiente
+                </button>
             </div>
         </div>
     );
